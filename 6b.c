@@ -1,5 +1,5 @@
 #include <stdio.h>
-main()
+int main()
 {
 int pid,pid1;
 pid=fork();
