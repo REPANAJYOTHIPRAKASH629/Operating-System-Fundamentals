@@ -15,15 +15,20 @@ int main(int c,char **args)
        return 0;
     }
 
-
+   
     for(i=1;i<=c;i++)
     {
-    if (stat(args[i], &fileStat) < 0) {
-        printf("Error: Failed to get file/directory status.\n");
-        return 1;
+    if(args[i]==NULL)
+    {
+       continue;
+    }
+    if (stat(args[i], &fileStat) < 0)
+         {
+        printf("Error: Failed to get file/directory status of %s .\n",args[i]);
+        continue;
     }
 
-
+   
     if (S_ISREG(fileStat.st_mode)) {
         printf("%s is a regular file.\n", args[i]);
     } else if (S_ISDIR(fileStat.st_mode)) {
@@ -32,7 +37,7 @@ int main(int c,char **args)
         printf("%s is neither a file nor a directory.\n", args[i]);
     }
 
-
+   
     printf("Permissions:\n");
     printf("Read permission: %s\n", (fileStat.st_mode & S_IRUSR) ? "Yes" : "No");
     printf("Write permission: %s\n", (fileStat.st_mode & S_IWUSR) ? "Yes" : "No");
@@ -40,7 +45,6 @@ int main(int c,char **args)
     }
     return 0;
 }
-
 
 
 /* output 
@@ -52,7 +56,6 @@ Permissions:
 Read permission: Yes
 Write permission: Yes
 Execute permission: No
-Error: Failed to get file/directory status.
 [22695a3203@GDLC 22695A3203]$
 
 */
